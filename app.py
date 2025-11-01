@@ -134,8 +134,22 @@ def load_custom_css():
     .footer {
         text-align: center;
         padding: 2rem;
-        color: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+        color: #333;
         font-size: 0.9rem;
+    }
+    
+    .footer p {
+        margin: 0.5rem 0;
+        line-height: 1.6;
+    }
+    
+    .footer strong {
+        color: #667eea;
+        font-size: 1.1rem;
     }
     
     /* Responsive Design */
