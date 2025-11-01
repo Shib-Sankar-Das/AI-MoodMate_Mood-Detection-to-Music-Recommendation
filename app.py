@@ -896,34 +896,52 @@ def build_pdf(session_info: Dict, percentages: Dict[str, float], top_emotion: st
     pdf.ln(4)
     pdf.set_font("Arial", "B", 13)
     pdf.cell(0, 8, "Recommended Songs:", ln=True)
-    pdf.set_font("Arial", size=11)
+    pdf.set_font("Arial", size=10)
     for title, reason, link in songs:
         clean_title = clean_text_for_pdf(title)
         clean_reason = clean_text_for_pdf(reason)
         clean_link = clean_text_for_pdf(link)
-        pdf.multi_cell(0, 6, f"- {clean_title} | Reason: {clean_reason} | Link: {clean_link}")
+        # Split into multiple lines to avoid text overflow
+        pdf.set_font("Arial", "B", 10)
+        pdf.multi_cell(0, 5, f"- {clean_title}")
+        pdf.set_font("Arial", size=9)
+        pdf.multi_cell(0, 4, f"  Reason: {clean_reason}")
+        pdf.multi_cell(0, 4, f"  Link: {clean_link}")
+        pdf.ln(1)
 
     # Reading/Mindfulness
     pdf.ln(2)
     pdf.set_font("Arial", "B", 13)
     pdf.cell(0, 8, "Reading & Mindfulness:", ln=True)
-    pdf.set_font("Arial", size=11)
+    pdf.set_font("Arial", size=10)
     for title, reason, link in reads:
         clean_title = clean_text_for_pdf(title)
         clean_reason = clean_text_for_pdf(reason)
         clean_link = clean_text_for_pdf(link)
-        pdf.multi_cell(0, 6, f"- {clean_title} | Why: {clean_reason} | Link: {clean_link}")
+        # Split into multiple lines to avoid text overflow
+        pdf.set_font("Arial", "B", 10)
+        pdf.multi_cell(0, 5, f"- {clean_title}")
+        pdf.set_font("Arial", size=9)
+        pdf.multi_cell(0, 4, f"  Why: {clean_reason}")
+        pdf.multi_cell(0, 4, f"  Link: {clean_link}")
+        pdf.ln(1)
 
     # Therapy
     pdf.ln(2)
     pdf.set_font("Arial", "B", 13)
     pdf.cell(0, 8, "Support & Counseling Resources:", ln=True)
-    pdf.set_font("Arial", size=11)
+    pdf.set_font("Arial", size=10)
     for name, desc, link in therapy:
         clean_name = clean_text_for_pdf(name)
         clean_desc = clean_text_for_pdf(desc)
         clean_link = clean_text_for_pdf(link)
-        pdf.multi_cell(0, 6, f"- {clean_name}: {clean_desc} | {clean_link}")
+        # Split into multiple lines to avoid text overflow
+        pdf.set_font("Arial", "B", 10)
+        pdf.multi_cell(0, 5, f"- {clean_name}")
+        pdf.set_font("Arial", size=9)
+        pdf.multi_cell(0, 4, f"  {clean_desc}")
+        pdf.multi_cell(0, 4, f"  Link: {clean_link}")
+        pdf.ln(1)
 
     # Save
     filename = f"moodmate_summary_{int(time.time())}.pdf"
