@@ -1,0 +1,10 @@
+streamlit==1.39.0
+ultralytics==8.3.40
+opencv-python==4.10.0.84
+numpy>=1.26.0
+pandas==2.2.2
+plotly==5.24.1
+Pillow==10.4.0
+streamlit-webrtc==0.47.1
+av
+fpdf==1.7.2
