@@ -819,8 +819,8 @@ def display_breathing_exercise(emotion: str):
     st.markdown("**Why This Exercise Helps:**")
     st.markdown(f"This breathing technique specifically targets the physiological and psychological aspects of **{emotion}** emotion. The scientific research shows that controlled breathing activates the parasympathetic nervous system, reduces stress hormones, and promotes emotional regulation.")
 
-def clean_text_for_pdf(text: str) -> str:
-    """Clean text to remove Unicode characters that can't be encoded in latin-1"""
+def clean_text_for_pdf(text: str, max_length: int = 150) -> str:
+    """Clean text to remove Unicode characters that can't be encoded in latin-1 and truncate if too long"""
     if not text:
         return ""
     # Replace common Unicode characters with ASCII equivalents
@@ -838,6 +838,12 @@ def clean_text_for_pdf(text: str) -> str:
     cleaned_text = text
     for unicode_char, ascii_char in replacements.items():
         cleaned_text = cleaned_text.replace(unicode_char, ascii_char)
+    
+    # Truncate if too long and add ellipsis
+    if len(cleaned_text) > max_length:
+        cleaned_text = cleaned_text[:max_length-3] + "..."
+    
+    return cleaned_text
     
     return cleaned_text
 
@@ -898,9 +904,9 @@ def build_pdf(session_info: Dict, percentages: Dict[str, float], top_emotion: st
     pdf.cell(0, 8, "Recommended Songs:", ln=True)
     pdf.set_font("Arial", size=10)
     for title, reason, link in songs:
-        clean_title = clean_text_for_pdf(title)
-        clean_reason = clean_text_for_pdf(reason)
-        clean_link = clean_text_for_pdf(link)
+        clean_title = clean_text_for_pdf(title, max_length=80)
+        clean_reason = clean_text_for_pdf(reason, max_length=120)
+        clean_link = clean_text_for_pdf(link, max_length=100)
         # Split into multiple lines to avoid text overflow
         pdf.set_font("Arial", "B", 10)
         pdf.multi_cell(0, 5, f"- {clean_title}")
@@ -915,9 +921,9 @@ def build_pdf(session_info: Dict, percentages: Dict[str, float], top_emotion: st
     pdf.cell(0, 8, "Reading & Mindfulness:", ln=True)
     pdf.set_font("Arial", size=10)
     for title, reason, link in reads:
-        clean_title = clean_text_for_pdf(title)
-        clean_reason = clean_text_for_pdf(reason)
-        clean_link = clean_text_for_pdf(link)
+        clean_title = clean_text_for_pdf(title, max_length=80)
+        clean_reason = clean_text_for_pdf(reason, max_length=120)
+        clean_link = clean_text_for_pdf(link, max_length=100)
         # Split into multiple lines to avoid text overflow
         pdf.set_font("Arial", "B", 10)
         pdf.multi_cell(0, 5, f"- {clean_title}")
@@ -932,9 +938,9 @@ def build_pdf(session_info: Dict, percentages: Dict[str, float], top_emotion: st
     pdf.cell(0, 8, "Support & Counseling Resources:", ln=True)
     pdf.set_font("Arial", size=10)
     for name, desc, link in therapy:
-        clean_name = clean_text_for_pdf(name)
-        clean_desc = clean_text_for_pdf(desc)
-        clean_link = clean_text_for_pdf(link)
+        clean_name = clean_text_for_pdf(name, max_length=80)
+        clean_desc = clean_text_for_pdf(desc, max_length=120)
+        clean_link = clean_text_for_pdf(link, max_length=100)
         # Split into multiple lines to avoid text overflow
         pdf.set_font("Arial", "B", 10)
         pdf.multi_cell(0, 5, f"- {clean_name}")
