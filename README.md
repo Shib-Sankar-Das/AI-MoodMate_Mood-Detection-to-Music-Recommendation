@@ -2,6 +2,10 @@
 
 A professional Streamlit application that detects facial emotions using a trained YOLOv11 model and provides personalized music recommendations, wellness tips, and therapy resources.
 
+
+https://github.com/user-attachments/assets/9e0ab087-c241-4a0e-9414-09014200290d
+
+
 ## Features
 
 - **Multi-Input Support**: Image, Video, and Live Webcam inputs
